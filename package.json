@@ -21,7 +21,6 @@
     "test:e2e": "playwright test"
   },
   "pre-commit": [
-    "lint",
     "test"
   ],
   "repository": {

@@ -27,17 +27,11 @@ router.post('/register', (req, res) => {
       newUser.hashPassword()
         .then(() => {
           newUser.save()
-            .then(user => {
-              return res.send({ message: 'User created successfully', user });
-            })
-            .catch(err => {
-              return res.status(400).send({ message: 'Create user failed', err });
-            });
+            .then(user => res.send({ message: 'User created successfully', user }))
+            .catch(err => res.status(400).send({ message: 'Create user failed', err }));
         });
     })
-    .catch(err => {
-      return res.status(400).send({ message: 'Create user failed', err });
-    });
+    .catch(err => res.status(400).send({ message: 'Create user failed', err }));
 });
 
 router.post('/login', (req, res, next) => {
