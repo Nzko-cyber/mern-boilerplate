@@ -8,7 +8,7 @@ import Modal from 'react-bulma-companion/lib/Modal';
 
 export default function DeleteModal({ active, onClose, onDelete }) {
   return (
-    <Modal className="confirm-modal" active={active}>
+    <Modal className="confirm-modal" active={active} data-testid="delete-modal">
       <Modal.Background />
       <Modal.Content>
         <Card>

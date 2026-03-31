@@ -25,8 +25,8 @@ export default function UserDropdown() {
   };
 
   return (
-    <Dropdown right hoverable>
-      <Dropdown.Trigger display="flex" alignItems="center">
+    <Dropdown right hoverable data-testid="user-dropdown">
+      <Dropdown.Trigger display="flex" alignItems="center" data-testid="user-dropdown-trigger">
         <Image size="32x32">
           <Image.Content
             className="profile-img"
@@ -37,9 +37,9 @@ export default function UserDropdown() {
           <FontAwesomeIcon icon={faCaretDown} />
         </Icon>
       </Dropdown.Trigger>
-      <Dropdown.Menu id="dropdown-menu" role="menu">
+      <Dropdown.Menu id="dropdown-menu" role="menu" data-testid="user-dropdown-menu">
         <Dropdown.Content className={styles.content}>
-          <Dropdown.Item className={styles.header} textAlign="center">
+          <Dropdown.Item className={styles.header} textAlign="center" data-testid="user-dropdown-header">
             {user.usernameCase}
           </Dropdown.Item>
           <Dropdown.Divider />
@@ -47,6 +47,7 @@ export default function UserDropdown() {
             className={styles.item}
             component={Link}
             to="/todo"
+            data-testid="user-dropdown-todo"
           >
             Todo List
           </Dropdown.Item>
@@ -54,6 +55,7 @@ export default function UserDropdown() {
             className={styles.item}
             component={Link}
             to="/settings"
+            data-testid="user-dropdown-settings"
           >
             Settings
           </Dropdown.Item>
@@ -62,6 +64,7 @@ export default function UserDropdown() {
             className={styles.item}
             component={Link}
             onClick={logout}
+            data-testid="user-dropdown-logout"
           >
             Logout
           </Dropdown.Item>

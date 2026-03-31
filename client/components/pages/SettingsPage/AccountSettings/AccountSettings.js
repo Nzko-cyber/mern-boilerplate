@@ -5,7 +5,7 @@ import ChangeUsername from './ChangeUsername';
 
 export default function Account() {
   return (
-    <div className="account-settings">
+    <div className="account-settings" data-testid="account-settings">
       <ChangeUsername />
       <ChangePassword />
     </div>

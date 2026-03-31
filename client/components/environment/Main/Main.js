@@ -39,7 +39,7 @@ export default function Main() {
     <React.Fragment>
       <ReactNotifications />
       <Navigation />
-      <main className={styles.root}>
+      <main className={styles.root} data-testid="main">
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="login" element={<LoginPage />} />

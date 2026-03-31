@@ -6,7 +6,7 @@ module.exports = {
     '<rootDir>/server/routes/**/*.[tj]s',
   ],
   moduleDirectories: ['node_modules'],
-  moduleFileExtensions: ['js'],
+  moduleFileExtensions: ['js', 'ts'],
   rootDir: path.join(__dirname, '../..'),
   setupFiles: ['<rootDir>/server/config/jest.setup.js'],
   testEnvironment: 'node',

@@ -19,7 +19,7 @@ export default function RegisterPage() {
   }, [dispatch, user]);
 
   return (
-    <Section display="flex" justifyContent="center">
+    <Section display="flex" justifyContent="center" data-testid="register-page">
       <RegisterPanel />
     </Section>
   );

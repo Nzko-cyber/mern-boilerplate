@@ -33,7 +33,7 @@ export default function TodoPage() {
   }, [dispatch, user]);
 
   return !loading && (
-    <div className="todo-page page">
+    <div className="todo-page page" data-testid="todo-page">
       <Section className="todo-section">
         <Title size="1" className="has-text-centered">
           Todo List:

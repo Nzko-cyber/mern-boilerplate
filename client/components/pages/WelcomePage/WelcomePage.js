@@ -19,7 +19,7 @@ export default function WelcomePage() {
   }, [dispatch, user]);
 
   return (
-    <Section>
+    <Section data-testid="welcome-page">
       <Container>
         <Title size="1" textAlign="center">
           Welcome Page!

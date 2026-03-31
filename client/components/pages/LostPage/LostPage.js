@@ -5,7 +5,7 @@ import Title from 'react-bulma-companion/lib/Title';
 
 export default function LostPage() {
   return (
-    <Section textAlign="center">
+    <Section textAlign="center" data-testid="lost-page">
       <Title size="1">
         404
       </Title>

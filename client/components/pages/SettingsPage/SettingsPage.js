@@ -26,7 +26,7 @@ export default function SettingsPage() {
   }, [dispatch, user]);
 
   return (
-    <div className="settings-page page">
+    <div className="settings-page page" data-testid="settings-page">
       <Section>
         <Container>
           <Columns>

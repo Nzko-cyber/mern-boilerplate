@@ -51,6 +51,16 @@ module.exports = {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
         include: [resolve('client')],
+        options: {
+          cacheDirectory: false,
+          presets: [
+            ['@babel/preset-env', { modules: 'commonjs' }],
+            '@babel/preset-react',
+          ],
+          plugins: [
+            ['ramda', { useES: true }],
+          ],
+        },
       },
       {
         test: /\.module.css$/,

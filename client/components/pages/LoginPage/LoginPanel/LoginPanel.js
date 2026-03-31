@@ -62,7 +62,7 @@ export default function LoginPanel() {
   const updatePassword = e => setPassword(e.target.value);
 
   return (
-    <Box className={styles.root}>
+    <Box className={styles.root} data-testid="login-panel">
       <Title size="3" textAlign="center">
         Login
       </Title>

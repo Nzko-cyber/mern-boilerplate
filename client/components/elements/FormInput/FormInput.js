@@ -26,6 +26,7 @@ export default function FormInput({
           placeholder={placeholder}
           onChange={onChange}
           value={value}
+          data-testid="input"
         />
         {leftIcon && (
           <Icon size="small" align="left">

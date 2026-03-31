@@ -27,7 +27,7 @@ export default function AddTodo() {
   const updateText = e => setText(e.target.value);
 
   return (
-    <Columns className="add-todo" gapless>
+    <Columns className="add-todo" gapless data-testid="add-todo">
       <Column size="10">
         <Input value={text} onChange={updateText} />
       </Column>

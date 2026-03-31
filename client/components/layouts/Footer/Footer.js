@@ -10,7 +10,7 @@ export default function FooterComponent() {
   const year = new Date().getFullYear();
 
   return (
-    <Footer className={styles.root}>
+    <Footer className={styles.root} data-testid="footer">
       <Container>
         <Content className={styles.content} textAlign="center">
           <p>

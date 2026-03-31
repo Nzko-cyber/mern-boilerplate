@@ -99,7 +99,7 @@ export default function RegisterPanel() {
   useKeyPress('Enter', register);
 
   return (
-    <Box className={styles.root}>
+    <Box className={styles.root} data-testid="register-panel">
       <Title size="3" textAlign="center">
         Register
       </Title>

@@ -26,7 +26,7 @@ import { attemptDeleteTodo, attemptToggleCompleteTodo, attemptUpdateTodo } from 
 const fromNow = date => formatDistanceToNow(parseISO(date), { addSuffix: true });
 
 export default function Todo({
-  id, text, completed, createdAt, updatedAt,
+  id, text, completed, createdAt, updatedAt, sequentialId,
 }) {
   const dispatch = useDispatch();
 
@@ -70,10 +70,10 @@ export default function Todo({
   const deleteTodo = () => dispatch(attemptDeleteTodo(id));
 
   return (
-    <Box className="todo" component="li">
+    <Box className="todo" component="li" data-testid={`todo-${sequentialId}`}>
       <Media>
         <Media.Left>
-          <Icon onClick={toggleCompleteTodo} onKeyPress={toggleCompleteTodo}>
+          <Icon onClick={toggleCompleteTodo} onKeyPress={toggleCompleteTodo} data-testid={`todo-toggle-${sequentialId}`}>
             {completed
               ? <FontAwesomeIcon icon={faSquareCheck} size="lg" />
               : <FontAwesomeIcon icon={faSquare} size="lg" />}
@@ -81,7 +81,7 @@ export default function Todo({
         </Media.Left>
         <Media.Content>
           <Content>
-            <p>
+            <p data-testid={`todo-created-${sequentialId}`}>
               <small>
                 {`created ${createdMessage}`}
               </small>
@@ -90,9 +90,10 @@ export default function Todo({
               <Textarea
                 value={currentText}
                 onChange={updateText}
+                data-testid={`todo-textarea-${sequentialId}`}
               />
             ) : (
-              <p>
+              <p data-testid={`todo-text-${sequentialId}`}>
                 {text}
               </p>
             )}
@@ -101,27 +102,27 @@ export default function Todo({
           <Level mobile>
             <Level.Left>
               {!!updatedAt && (
-                <small>
+                <small data-testid={`todo-updated-${sequentialId}`}>
                   {`edited ${updatedMessage}`}
                 </small>
               )}
             </Level.Left>
             <Level.Right>
               {edit ? (
-                <Icon className="space-right" onClick={handleUpdateTodo} onKeyPress={handleUpdateTodo}>
+                <Icon className="space-right" onClick={handleUpdateTodo} onKeyPress={handleUpdateTodo} data-testid={`todo-save-${sequentialId}`}>
                   <FontAwesomeIcon icon={faFloppyDisk} size="lg" />
                 </Icon>
               ) : (
-                <Icon className="space-right" onClick={editTodo} onKeyPress={editTodo}>
+                <Icon className="space-right" onClick={editTodo} onKeyPress={editTodo} data-testid={`todo-edit-${sequentialId}`}>
                   <FontAwesomeIcon icon={faPencil} size="lg" />
                 </Icon>
               )}
               {edit ? (
-                <Icon onClick={cancelEdit} onKeyPress={cancelEdit}>
+                <Icon onClick={cancelEdit} onKeyPress={cancelEdit} data-testid={`todo-cancel-${sequentialId}`}>
                   <FontAwesomeIcon icon={faBan} size="lg" />
                 </Icon>
               ) : (
-                <Icon onClick={openModal} onKeyPress={cancelEdit}>
+                <Icon onClick={openModal} onKeyPress={cancelEdit} data-testid={`todo-delete-${sequentialId}`}>
                   <FontAwesomeIcon icon={faTrashCan} size="lg" />
                 </Icon>
               )}
@@ -133,6 +134,7 @@ export default function Todo({
         active={confirm}
         onClose={closeModal}
         onDelete={deleteTodo}
+        data-testid={`todo-delete-modal-${sequentialId}`}
       />
     </Box>
   );
@@ -144,6 +146,7 @@ Todo.propTypes = {
   completed: PropTypes.bool.isRequired,
   createdAt: PropTypes.string.isRequired,
   updatedAt: PropTypes.string,
+  sequentialId: PropTypes.number.isRequired,
 };
 
 Todo.defaultProps = {

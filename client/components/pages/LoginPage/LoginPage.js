@@ -19,7 +19,7 @@ export default function LoginPage() {
   }, [dispatch, user]);
 
   return (
-    <Section display="flex" justifyContent="center">
+    <Section display="flex" justifyContent="center" data-testid="login-page">
       <LoginPanel />
     </Section>
   );

@@ -19,7 +19,7 @@ export default function HomePage() {
   }, [dispatch, user]);
 
   return (
-    <Section>
+    <Section data-testid="home-page">
       <Container>
         <Title size="1" textAlign="center">
           Home Page

@@ -18,7 +18,7 @@ export default function SettingsMenu() {
       .catch(R.identity);
 
   return (
-    <Box>
+    <Box data-testid="settings-menu">
       <Menu className="settings-menu">
         <Menu.Label>
           Personal

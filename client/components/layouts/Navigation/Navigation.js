@@ -34,7 +34,7 @@ export default function Navigation() {
     : R.slice(0, 10, pathname) === '/settings/';
 
   return (
-    <Navbar fixed="top" shadow>
+    <Navbar fixed="top" shadow data-testid="navbar">
       <Container>
         <Navbar.Brand>
           <Navbar.Item
