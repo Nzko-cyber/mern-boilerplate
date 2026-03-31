@@ -73,17 +73,29 @@ export class TodoPage {
   }
 
   async editTodoByText(currentText: string, newText: string) {
-    const item = this.todoItemByText(currentText);
-    await expect(item).toBeVisible();
-    await item.locator('[data-testid^="todo-edit-"]').click();
-    await item.locator('[data-testid^="todo-textarea-"]').fill(newText);
-    await item.locator('[data-testid^="todo-save-"]').click();
+    const itemByText = this.todoItemByText(currentText);
+    await expect(itemByText).toBeVisible();
+
+    // Capture a stable test id before text changes, then re-locate by that id.
+    const itemTestId = await itemByText.getAttribute('data-testid');
+    if (!itemTestId) {
+      throw new Error(`Could not resolve todo item test id for text: ${currentText}`);
+    }
+
+    const item = this.page.getByTestId(itemTestId);
+    await item.locator('[data-testid^="todo-edit-"]').first().click();
+    const textarea = item.locator('[data-testid^="todo-textarea-"]').first();
+    await expect(textarea).toBeVisible();
+    await textarea.fill(newText);
+    const saveButton = item.locator('[data-testid^="todo-save-"]').first();
+    await expect(saveButton).toBeVisible();
+    await saveButton.click();
   }
 
   async toggleTodoByText(text: string) {
     const item = this.todoItemByText(text);
     await expect(item).toBeVisible();
-    await item.locator('[data-testid^="todo-toggle-"]').click();
+    await item.locator('[data-testid^="todo-toggle-"]').first().click();
   }
 
   async deleteTodoByText(text: string) {

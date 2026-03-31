@@ -3,7 +3,7 @@ import * as path from 'path';
 import { TestCredentials } from './types';
 
 export function readCredentials(): TestCredentials {
-  const credentialsPath = path.resolve(__dirname, '../../../support/setup/test-credentials.json');
+  const credentialsPath = path.resolve(__dirname, '../setup/test-credentials.json');
   if (!fs.existsSync(credentialsPath)) {
     throw new Error(`Credentials file not found at ${credentialsPath}. Run create-env.ts before tests.`);
   }

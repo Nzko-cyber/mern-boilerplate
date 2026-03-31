@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import {
   register,
   login,
@@ -7,13 +9,17 @@ import {
   createTodo,
   toggleTodoComplete,
   updateTodo,
-  deleteTodo
+  deleteTodo,
 } from "../function/api";
 import { randomString, sleep } from "../utils";
 
 const environment = {
   validUsername: `testuser${randomString(5)}`,
   validPassword: "password123",
+
+  existingUsername: "",
+  existingPassword: "",
+
   invalidUsername: "invaliduser",
   invalidPassword: "wrongpass",
   todoText: "Test Todo",
@@ -21,7 +27,35 @@ const environment = {
   todoId: "",
 };
 
+const credentialsFilePath = path.resolve(
+  __dirname,
+  "../../../client/tests/support/setup/test-credentials.json"
+);
+
 describe("MERN Boilerplate API Tests", () => {
+  beforeAll(() => {
+    if (!fs.existsSync(credentialsFilePath)) {
+      throw new Error(
+        `Shared test credentials file not found at ${credentialsFilePath}. ` +
+          "Make sure create-env.ts has been executed before running API tests."
+      );
+    }
+
+    const raw = fs.readFileSync(credentialsFilePath, "utf8");
+    const credentials = JSON.parse(raw) as {
+      username?: string;
+      password?: string;
+    };
+
+    if (!credentials.username || !credentials.password) {
+      throw new Error(
+        `Invalid credentials JSON in ${credentialsFilePath}: expected username and password`
+      );
+    }
+
+    environment.existingUsername = String(credentials.username);
+    environment.existingPassword = String(credentials.password);
+  });
   describe("Auth API Tests", () => {
     describe("Register (POST /auth/register)", () => {
       it(" Register user with valid data", async () => {
@@ -54,8 +88,8 @@ describe("MERN Boilerplate API Tests", () => {
     describe("Login (POST /auth/login)", () => {
       it(" Login with valid credentials", async () => {
         const response = await login({
-          username: environment.validUsername,
-          password: environment.validPassword,
+          username: environment.existingUsername,
+          password: environment.existingPassword,
         });
 
         expect(response).toBeDefined();
@@ -89,7 +123,7 @@ describe("MERN Boilerplate API Tests", () => {
 
       it("Check taken username", async () => {
         const response = await checkUsername({
-          username: environment.validUsername,
+          username: environment.existingUsername,
         });
 
         expect(response).toBeDefined();
@@ -103,8 +137,8 @@ describe("MERN Boilerplate API Tests", () => {
       it(" Logout user", async () => {
         // First login
         await login({
-          username: environment.validUsername,
-          password: environment.validPassword,
+          username: environment.existingUsername,
+          password: environment.existingPassword,
         });
 
         const response = await logout();
@@ -120,8 +154,8 @@ describe("MERN Boilerplate API Tests", () => {
     beforeAll(async () => {
       // Login to get authenticated for todo operations
       await login({
-        username: environment.validUsername,
-        password: environment.validPassword,
+        username: environment.existingUsername,
+        password: environment.existingPassword,
       });
     });
 

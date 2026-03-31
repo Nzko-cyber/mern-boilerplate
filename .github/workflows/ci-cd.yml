@@ -58,6 +58,9 @@ jobs:
           echo "API did not become ready in time"
           exit 1
 
+      - name: Create test user for API and E2E
+        run: npx ts-node client/tests/support/setup/create-env.ts
+
       - name: Run API tests
         run: npm run test:api
 
@@ -69,6 +72,10 @@ jobs:
 
       - name: Run E2E tests
         run: npm run test:e2e
+
+      - name: Cleanup E2E test user
+        if: always()
+        run: npx ts-node client/tests/support/setup/delete-env.ts
 
       - name: Upload Playwright report
         if: always()

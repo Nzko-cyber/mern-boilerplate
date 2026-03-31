@@ -16,7 +16,7 @@ async function deleteEnv() {
 
   require('../../../../server/config/environment');
   await require('../../../../server/database');
-  const { User } = require('../../../../server/database/schemas');
+  const { User, Todo } = require('../../../../server/database/schemas');
 
   const query = credentials.userId
     ? { _id: credentials.userId }
@@ -26,6 +26,10 @@ async function deleteEnv() {
   if (!deleted) {
     throw new Error(`User not found for deletion: ${JSON.stringify(query)}`);
   }
+
+  // Remove all todos associated with this user so the environment is clean
+  const todosResult = await Todo.deleteMany({ user: deleted._id });
+  console.log(`Deleted ${todosResult.deletedCount} todos for user "${deleted.username}".`);
 
   fs.unlinkSync(CREDENTIALS_FILE);
   console.log(`Deleted user "${deleted.username}" and removed ${CREDENTIALS_FILE}`);

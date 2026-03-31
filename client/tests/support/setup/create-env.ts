@@ -40,9 +40,9 @@ async function createEnv() {
   if (!response.ok) {
     let errorMessage = `HTTP ${response.status}`;
     try {
-      const errorPayload = await response.json();
-      if (errorPayload && typeof errorPayload.message === 'string') {
-        errorMessage = errorPayload.message;
+      const errorPayload: any = await response.json();
+      if (errorPayload && typeof (errorPayload as any).message === 'string') {
+        errorMessage = (errorPayload as any).message;
       }
     } catch (_error) {
       // Keep default status-based message if parsing fails.
@@ -50,15 +50,15 @@ async function createEnv() {
     throw new Error(`Failed to create user: ${errorMessage}`);
   }
 
-  const data = await response.json();
-  if (!data || !data.user) {
+  const data: any = await response.json();
+  if (!data || !(data as any).user) {
     throw new Error('API did not return user data');
   }
 
   const credentials = {
     username,
     password,
-    userId: data.user._id || data.user.id,
+    userId: (data as any).user._id || (data as any).user.id,
   };
 
   const dir = path.dirname(CREDENTIALS_FILE);

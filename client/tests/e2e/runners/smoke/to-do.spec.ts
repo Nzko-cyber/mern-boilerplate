@@ -38,7 +38,7 @@ test.describe('Smoke - Todo and Settings', () => {
 
     await test.step('updating user profile in settings', async () => {
       await settingsPage.goto();
-      await settingsPage.updateProfile('changedfirstname', 'changedlastname', 'changedbio');
+      await settingsPage.updateProfile('changedfirstname_${Date.now()}', 'changedlastname_${Date.now()}', 'changedbio_${Date.now()}');
       await expect(page.locator('#app')).toContainText('Success!User successfully updated');
     });
   });
