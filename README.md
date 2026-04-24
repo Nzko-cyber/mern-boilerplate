@@ -147,7 +147,7 @@ You can now start updating files in your client to begin working on your own pro
 
 
 
-[SuperAgent](https://github.com/visionmedia/superagent) - HTTP Request Library
+
 
 [ESLint](http://eslint.org/) - Code Linter
 
